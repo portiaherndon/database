@@ -9,9 +9,10 @@ function find_user($name,$database)
 	    $user_gender = $row['gender'];
 	    $user_age = $row['age']; 
 	}
-        $os = $database->query("SELECT system FROM fav_os WHRER id = '$user_id';");
+        $os = $database->query("SELECT system FROM fav_os WHERE id = '$user_id';");
 	foreach($os as $row2) {
 	    $user_os = $row2['system'];
+	   
 	}
         $person = $database->query("SELECT person FROM type WHERE id = '$user_id';");
 	foreach($person as $row3) {
@@ -22,7 +23,7 @@ function find_user($name,$database)
 	    $user_min = $row4['min'];
 	    $user_max = $row4['max'];
 	}
-    }
+    } 
     $user = array($name,$user_gender,$user_age,$user_os,$user_type,$user_min,$user_max);
     return $user;
 }
@@ -46,9 +47,38 @@ function compare($user,$database)
 	    $maybe[$index] = $row;
 	    $index++;
 	} 
-	foreach ($maybe as $row) {
-	    print $row["system"];
+	
+
+	$index =0;
+	
+	
+
+	var_dump($user);
+	for ($temp=0; $temp<count($maybe); ++$temp)
+	{
+		
+	    if($user[1] != $maybe[$temp]['gender'])
+	    {
+		if(($user[2] > $maybe[$temp]['min']) && ($user[2] < $maybe[$temp]['max']) && ($maybe[$temp]['age'] > $user[5]) && ($maybe[$temp]['age'] < $user[6]))
+		{
+		    if($user[3] == $maybe[$temp]['system'])
+		    {
+			$sim = similar_text($user[4],$maybe[$temp]['person'],$perc);
+			if($sim >0)
+			{
+		    	    $matches[$index] = $maybe[$temp];
+		    	    $index++;
+			}
+		    }
+		}
+	    }
+		
 	}
+	var_dump($matches);	
+
+	//foreach ($maybe as $row) {
+	//    print $row["system"];
+	//}
     }
 
 
@@ -76,6 +106,8 @@ THE FIND_USER FUNCTION SIMPLY LOOKS FOR THE USER IN THE FILE TO SEE IF THIS USER
 	{ 
 	    $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
 	    $info = find_user($search,$db);
+	    
+	    
 	    compare ($info,$db);
 	    /*else
 	    {
