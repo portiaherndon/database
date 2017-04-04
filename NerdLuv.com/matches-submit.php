@@ -23,10 +23,13 @@ THE FIND_USER FUNCTION SIMPLY LOOKS FOR THE USER IN THE FILE TO SEE IF THIS USER
 	    {
 		
 		echo "Hello";
-		while($row = mysqli_fetch_array($sql)) {	
+		foreach ($sql as $row) {
+			print $row['id'];
+			print $row['gender'];
+		
 		    
-		    echo "yup";
-		    echo $row["age"];
+
+
 		}
 		 
 	    }
