@@ -1,4 +1,13 @@
-<php include("top.html"); ?> 
+<?php include("top.html"); 
+function insert($user,$database)
+{ 
+    $database = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
+    $database->query("INSERT INTO basic_info VALUES (NULL,'$user[0]','$user[1]',$user[2]);"); 
+    $database->query("INSERT INTO fav_os VALUE (NULL,'$user[3]');");
+    $database->query("INSERT INTO type VALUE (NULL,'$user[4]');");
+    $database->query("INSERT INTO seeking VALUE (NULL,$user[5],$user[6]);"); 	    	    
+}
+?>
 <!-- THIS PAGE RECEIVES THE USER'S INFO BY WAY OF FORM POST AND VALIDATES THE INFORMATION GIVEN. I UNDERSTAND THAT ONE GENERAL FUNCTION THAT VALIDATES THE USER'S INPUT WOULD BE MORE EFFICIENT IN TERMS OF CODE AND TIME BUT I FIGURED IT WOULD BE BEST FOR THE USER TO KNOW WHAT KIND OF INPUT ERROR THEY HAVE. --> 
 <?php
 	/*HERE, THE ATTRIBUTES OF THE USER RECEIVED FROM $_POST ARE 
@@ -39,27 +48,11 @@
 			USING THE ARRAY FUNCTION AND THEN 
 			PLACED INTO THE FILE USING THE 
 			FILE_PUT_CONTENTS FUNCTION*/ 
-	    //$info = array($name,$sex,$age,$person,$OS,$min,$max);
-	    //file_put_contents($file,implode(',',$info)."\n", FILE_APPEND | LOCK_EX); 
-	    
-	    $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234");
-	    
-	    $db->query("INSERT INTO basic_info VALUES (NULL,'$name','$sex',$age);"); 
-	    $db->query("INSERT INTO fav_os VALUE (NULL,'$OS');");
-	    $db->query("INSERT INTO type VALUE (NULL,'$person');");
-	    $db->query("INSERT INTO seeking VALUE (NULL,$min,$max);"); 	    	    
-	    
-
-
-
-
-
-
+	    $info = array($name,$sex,$age,$person,$OS,$min,$max); 
+	    insert($info); 
 	    ?> 
-
 	        <p><strong> Thank you! </strong><br><br>Welcome to NerdLuv, <?= $name ?><br><br>
 		    Now <a href="matches.php">log in to see your matches! </a>
-	
 		</p>
 	<?php 
 	} 

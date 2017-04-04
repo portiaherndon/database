@@ -46,14 +46,9 @@ function compare($user,$database)
 	foreach ($result as $row) { 
 	    $maybe[$index] = $row;
 	    $index++;
-	} 
-	
-
-	$index =0;
-	
-	
-
-	var_dump($user);
+	}
+	 
+	$index =0; 
 	for ($temp=0; $temp<count($maybe); ++$temp)
 	{
 		
@@ -74,21 +69,8 @@ function compare($user,$database)
 	    }
 		
 	}
-	var_dump($matches);	
-
-	//foreach ($maybe as $row) {
-	//    print $row["system"];
-	//}
-    }
-
-
-
-
-
-
-
-
-    
+	return $matches;	
+    } 
 } 
 ?>
 <!-- THIS PAGE RECEIVES THE USER'S NAME BY WAY OF GET, LOOKS UP THAT NAME, STORES OF THE USER'S INFOINTO AN ARRAY AND THEN CYCLES THROUGH THE FILE FOR MATCHES.
@@ -96,26 +78,45 @@ THE FIND_USER FUNCTION SIMPLY LOOKS FOR THE USER IN THE FILE TO SEE IF THIS USER
 <?php
     
     $search= $_GET['name']; 
-	if(empty($search))
-	{
+    if(empty($search))
+    {
 	?>
-	    <p>Error: Required field left empty</p>
-	<?php
-	}
-	else 
-	{ 
-	    $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
-	    $info = find_user($search,$db);
-	    
-	    
-	    compare ($info,$db);
-	    /*else
-	    {
-	    ?>
-	        <p> There are no matches </p>
-	    <?php
-	    } */
-	}
+        <p>Error: Required field left empty</p>
+    <?php
+    }
+    else 
+    { 
+        $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
+        $info = find_user($search,$db); 
+        $match = compare ($info,$db);
 	
-	    ?> 
+        if(count($match) > 0)
+        {
+   	    foreach ($match as $connect)
+	    { 
+		?>
+		<div class ="match" >
+		    <p>
+		        <img src ="photos/user.jpg" alt="user image" />
+		        <?= $connect[1]; ?> 
+		    </p>
+		    <ul>
+			<li><strong>Gender:</strong><?= $connect[2]; ?></li>
+			<li><strong>Age:</strong><?= $connect[3]; ?></li>
+			<li><strong>Type:</strong><?= $connect[10]; ?></li>
+			<li><strong>OS:</strong> <?= $connect[5]; ?></li>
+		    </ul>
+		</div>
+		<?php
+	    }
+ 	}
+	else
+	{
+        ?>
+            <p> There are no matches </p>
+        <?php
+        }
+    }
+	
+    ?> 
 <?php include("bottom.html"); ?>
