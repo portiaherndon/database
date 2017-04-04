@@ -1,7 +1,7 @@
 <?php include("top.html");
-find_user($name,$database) 
+function find_user($name,$database) 
 { 
-    $sql = $database->query("SELECT id, gender, age FROM basic_info WHERE name = '$search';");
+    $sql = $database->query("SELECT id, gender, age FROM basic_info WHERE name = '$name';");
     if($sql)
     { 
 	foreach ($sql as $row) {
@@ -42,12 +42,12 @@ THE FIND_USER FUNCTION SIMPLY LOOKS FOR THE USER IN THE FILE TO SEE IF THIS USER
 	{ 
 	    $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
 	    $info = find_user($search,$db);
-	    //else
-	    //{
-	    //?>
-	    //    <p> There are no matches </p>
-	   // <?php
-	    //} 
+	    /*else
+	    {
+	    ?>
+	        <p> There are no matches </p>
+	    <?php
+	    } */
 	}
 	
 	    ?> 
