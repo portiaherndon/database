@@ -29,17 +29,25 @@ function find_user($name,$database)
 function compare($user,$database)
 {	
     $matches = array();
-    $ids = array();
+    $maybe = array();
     $index =0;
-    $result = $database->query("SELECT * FROM basic_info WHERE name != '$user[0]';"); 
+    $result = $database->query("SELECT basic_info.*, fav_os.*, seeking.*, type.*  
+				FROM basic_info 
+				JOIN fav_os
+				    ON fav_os.id = basic_info.id
+				JOIN type 
+				    ON type.id = fav_os.id
+				JOIN seeking
+				    ON seeking.id = basic_info.id
+				WHERE basic_info.name != '$user[0]';"); 
     if($result)
     {
 	foreach ($result as $row) { 
-	    $matches[$index] = $row;
+	    $maybe[$index] = $row;
 	    $index++;
 	} 
-	foreach ($matches as $row) {
-	    print $row["name"];
+	foreach ($maybe as $row) {
+	    print $row["system"];
 	}
     }
 
