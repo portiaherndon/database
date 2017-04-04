@@ -23,8 +23,34 @@ function find_user($name,$database)
 	    $user_max = $row4['max'];
 	}
     }
-    $user = array($user_gender,$user_age,$user_os,$user_type,$user_min,$user_max);
+    $user = array($name,$user_gender,$user_age,$user_os,$user_type,$user_min,$user_max);
     return $user;
+}
+function compare($user,$database)
+{	
+    $matches = array();
+    $ids = array();
+    $index =0;
+    $result = $database->query("SELECT * FROM basic_info WHERE name != '$user[0]';"); 
+    if($result)
+    {
+	foreach ($result as $row) { 
+	    $matches[$index] = $row;
+	    $index++;
+	} 
+	foreach ($matches as $row) {
+	    print $row["name"];
+	}
+    }
+
+
+
+
+
+
+
+
+    
 } 
 ?>
 <!-- THIS PAGE RECEIVES THE USER'S NAME BY WAY OF GET, LOOKS UP THAT NAME, STORES OF THE USER'S INFOINTO AN ARRAY AND THEN CYCLES THROUGH THE FILE FOR MATCHES.
@@ -42,6 +68,7 @@ THE FIND_USER FUNCTION SIMPLY LOOKS FOR THE USER IN THE FILE TO SEE IF THIS USER
 	{ 
 	    $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
 	    $info = find_user($search,$db);
+	    compare ($info,$db);
 	    /*else
 	    {
 	    ?>
