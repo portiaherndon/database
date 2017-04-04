@@ -1,9 +1,10 @@
-<?php include("top.html"); ?> 
+<php include("top.html"); ?> 
 <!-- THIS PAGE RECEIVES THE USER'S INFO BY WAY OF FORM POST AND VALIDATES THE INFORMATION GIVEN. I UNDERSTAND THAT ONE GENERAL FUNCTION THAT VALIDATES THE USER'S INPUT WOULD BE MORE EFFICIENT IN TERMS OF CODE AND TIME BUT I FIGURED IT WOULD BE BEST FOR THE USER TO KNOW WHAT KIND OF INPUT ERROR THEY HAVE. --> 
 <?php
 	/*HERE, THE ATTRIBUTES OF THE USER RECEIVED FROM $_POST ARE 
 		PLACED INTO VARIABLES TO LIMIT USAGE OF THE GLOBL 
 		VARIABLE. NEXT EACH VARIBALE IS TESTED TO ENSURE ACCURACY */
+	
 	$name=$_POST['name'];
 	$sex=$_POST['cc'];
 	$age=$_POST['age'];
@@ -46,8 +47,8 @@
 	    $db->query("INSERT INTO basic_info VALUES (NULL,'$name','$sex',$age);"); 
 	    $db->query("INSERT INTO fav_os VALUE (NULL,'$OS');");
 	    $db->query("INSERT INTO type VALUE (NULL,'$person');");
-	    $db->query("INSERT INTO seeking VALUR (NULL,$min,$max);"); 	    	    
-	 
+	    $db->query("INSERT INTO seeking VALUE (NULL,$min,$max);"); 	    	    
+	    
 
 
 
