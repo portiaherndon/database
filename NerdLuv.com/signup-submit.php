@@ -1,7 +1,7 @@
 <?php include("top.html"); 
-function insert($user,$database)
+function insert($user)
 { 
-    $database = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
+    $database = new PDO("mysql:host=localhost;dbname=nerdluv2_nerdluv2","nerdluv2_test","test"); 
     $database->query("INSERT INTO basic_info VALUES (NULL,'$user[0]','$user[1]',$user[2]);"); 
     $database->query("INSERT INTO fav_os VALUE (NULL,'$user[3]');");
     $database->query("INSERT INTO type VALUE (NULL,'$user[4]');");

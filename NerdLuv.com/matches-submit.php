@@ -86,12 +86,12 @@ THE FIND_USER FUNCTION SIMPLY LOOKS FOR THE USER IN THE FILE TO SEE IF THIS USER
     }
     else 
     { 
-        $db = new PDO("mysql:dbname=nerdluv","root","Pherndon1234"); 
-        $info = find_user($search,$db); 
-        $match = compare ($info,$db);
-	
+	$db = new PDO("mysql:host=localhost;dbname=nerdluv2_nerdluv2","nerdluv2_test","test"); 
+        $info = find_user($search,$db);
+        $match = compare ($info,$db); 
         if(count($match) > 0)
         {
+	    ?><p><strong> Matches for <?= $search; ?> </strong></p><?php
    	    foreach ($match as $connect)
 	    { 
 		?>
